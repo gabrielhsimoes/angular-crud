@@ -1,33 +1,56 @@
 # AngularCrud
 
-Acesse: https://www.youtube.com/watch?v=wNx44Hdvp1s&t=7s para dar continuidade ao projeto
+This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.1.1.
 
-## Sistema CRUD Módulo 1
+## Development server
 
-Video: 23:44
+Install json-server (https://github.com/typicode/json-server):
 
-![image](https://user-images.githubusercontent.com/72312920/156959297-4d17b0dc-9acb-4e5e-984d-15a9e9b9d2e6.png)
+```
+npm install -g json-server
+```
 
-## Instalação da Aplicação
+Create a `db.json` file with some data
 
-Antes de usar o git clone para a sua maquina local, criar uma pasta para poder adicionaar o db.json e rodar o http://localhost:3000/itens
+ ```json
+ {  
+ 	"itens":[  
+ 	{  
+ 		"id":1,
+ 		"nome":"Item 1"
+ 	},
+ 	{  
+ 		"id":2,
+ 		"nome":"Item 2"
+ 	}
+ 	]
+ }
+ ```
+Start JSON Server
 
-npm install -g json-server - PARA INSTALAR O API Fake
-
-Create a db.json file with some data
-
-{  
-	"itens":[  
-	{  
-		"id":1,
-		"nome":"Item 1"
-	},
-	{  
-		"id":2,
-		"nome":"Item 2"
-	}
-	]
-}
-
-Depois rode a aplicação:
+```bash
 json-server --watch db.json
+```
+
+Now if you go to [http://localhost:3000/itens/1](http://localhost:3000/itens/1), you'll get
+
+```json
+{  
+    "id":1,
+    "nome":"Item 1"
+}
+```
+
+Then run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+
+## Build
+
+Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+
+## Running unit tests
+
+Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+
+## Running end-to-end tests
+
+Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
