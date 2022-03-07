@@ -10,6 +10,7 @@ export class ItemService {
 
   private baseURL = 'http://localhost:3000';
   private endpoint = 'itens';
+  
   constructor(private httpClient: HttpClient) { }
 
   listar(): Observable<Item[]>{
