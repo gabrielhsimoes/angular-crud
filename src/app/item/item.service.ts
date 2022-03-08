@@ -1,7 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { Page, QueryBuilder } from '../_util/Pagination';
 import { Item } from './item.model';
+import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -13,8 +15,12 @@ export class ItemService {
   
   constructor(private httpClient: HttpClient) { }
 
-  listar(): Observable<Item[]>{
-    return this.httpClient.get<Item[]>(`${this.baseURL}/${this.endpoint}`);
+  listar(queryBuilder: QueryBuilder): Observable<Page<Item>>{
+    return this.httpClient
+    .get<Item[]>(`${this.baseURL}/${this.endpoint}?${queryBuilder.buildQueryString()}`, {observe: 'response'})
+    .pipe(
+      map(response => <Page<Item>>Page.fromResponse(response))
+    );
    }
 
    cadastrar(item: Item): Observable<Item> {

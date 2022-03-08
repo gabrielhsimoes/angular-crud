@@ -12,7 +12,7 @@ export interface QueryBuilder {
 }
 
 export class PageRequest implements QueryBuilder{
-
+    
     constructor(public pageQuery: PageQuery, public aditionalQuery: Map<string, string>){}
     buildQueryMap(): Map<string, string> {
 
@@ -24,11 +24,27 @@ export class PageRequest implements QueryBuilder{
 
         return buildQueryMap;
     }
+
     buildQueryString(): string {
-        throw new Error("Method not implemented.");
+        
+        return Array.from(this.buildQueryMap()).map(itemArray=> `${itemArray[0]}=${itemArray[1]}`).join("&");
     }
     buildPageQueryMap(): Map<string, string> {
-        throw new Error("Method not implemented.");
+        let buildPageQueryMap = new Map<string, string>();
+
+        buildPageQueryMap.set("_page", `${this.pageQuery.pageNumber + 1}`);
+        buildPageQueryMap.set("_limit", `${this.pageQuery.pageSize}`);
+
+        return buildPageQueryMap;
     }
 
+}
+
+export class Page<T> {
+
+    constructor(public content: T[], public totalElements: number){}
+
+    static fromResponse<T>(response:any){
+        return new Page<T>(response.body, parseInt(response.headers.get("X-Total-Count")));
+    }
 }

@@ -1,12 +1,15 @@
-<mat-toolbar>Lista de Itens</mat-toolbar>
+<mat-toolbar>
+    <strong>TURNOS</strong>
+    
+</mat-toolbar>
 
 <ng-template #carregando>
     <mat-spinner></mat-spinner>
 </ng-template>
 
 <div class="componente-container">
-    <div *ngIf="itens$ | async as itens; else carregando">
-        <table mat-table [dataSource]="itens">
+    <div class="table-container">
+        <table mat-table [dataSource]="page.content">
 
             <ng-container matColumnDef="id">
                 <th mat-header-cell *matHeaderCellDef> ID </th>
@@ -21,6 +24,22 @@
             <tr mat-header-row *matHeaderRowDef="colunasTabela"></tr>
             <tr mat-row *matRowDef="let row; columns: colunasTabela;"></tr>
         </table>
+        <div *ngIf="carregando" class="spinner">
+            <mat-spinner></mat-spinner>
+        </div>   
+
+        <div *ngIf="!carregando && page.totalElements === 0">
+            Nenhum registro carregado
+        </div>        
+
+        <mat-paginator *ngIf="page.totalElements > 0"
+              [length]="page.totalElements"
+              [pageSize]="5"
+              [pageSizeOptions]="[5, 10, 25, 100]"
+              aria-label="Select page"
+              (page)="pageEvent = $event; listarItens()">
+        </mat-paginator>
+
     </div>
 
     <div class="linha-botoes">
@@ -29,3 +48,5 @@
         </button>
     </div>
 </div>
+
+
