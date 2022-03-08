@@ -15,19 +15,19 @@ export class ItemListarComponent implements OnInit {
   //itens$
   // itens$!: Observable<Item[]>;
   
+  colunasTabela = ['id','nome']
+
   page: Page<Item> = new Page([], 0);
   pageEvent!: PageEvent;
 
   carregando = false;
-
-  colunasTabela = ['id','nome']
 
   constructor(private itemService: ItemService) { }
 
   ngOnInit(): void {
     this.listarItens();
   }
-  //Erro da função listar 
+  
   listarItens(){
     this.carregando = true;
     const queryAdicional = new Map(); 
