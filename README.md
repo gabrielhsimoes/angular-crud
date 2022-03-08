@@ -44,5 +44,6 @@ Now if you go to [http://localhost:3000/itens/1](http://localhost:3000/itens/1),
 Then run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
 
 ## Continuação ao Projeto - Paginação
-- video: 05:16
+- video: 14:20
+- Pendente: mat-spinner erro! Prioridade: Baixa!
 
