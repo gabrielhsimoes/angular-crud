@@ -15,6 +15,7 @@ import { HomeComponent } from './home/home.component';
 import { HttpClientModule } from '@angular/common/http';
 import { MatPaginatorIntl } from '@angular/material/paginator';
 import { MatPaginatorIntlPtBr } from './_util/paginator-ptbr-i8n';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
 
 @NgModule({
   declarations: [
@@ -28,6 +29,7 @@ import { MatPaginatorIntlPtBr } from './_util/paginator-ptbr-i8n';
     BrowserAnimationsModule,
     LayoutModule,
     MatToolbarModule,
+    MatSnackBarModule,
     MatButtonModule,
     MatSidenavModule,
     MatIconModule,

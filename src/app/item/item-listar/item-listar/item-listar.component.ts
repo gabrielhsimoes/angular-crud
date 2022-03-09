@@ -4,6 +4,9 @@ import { Item } from '../../item.model';
 import { Page, PageRequest } from 'src/app/_util/Pagination';
 import { PageEvent } from '@angular/material/paginator';
 import { take } from 'rxjs';
+import { Sort } from '@angular/material/sort';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { FormBuilder, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-item-listar',
@@ -19,23 +22,40 @@ export class ItemListarComponent implements OnInit {
 
   page: Page<Item> = new Page([], 0);
   pageEvent!: PageEvent;
+  sortEvent!: Sort;
 
   carregando = false;
+  formGroupPesquisa!: FormGroup;
 
-  constructor(private itemService: ItemService) { }
+  constructor(private itemService: ItemService, private matSnackBar: MatSnackBar, private formBuilder: FormBuilder) { }
 
   ngOnInit(): void {
+    this.formGroupPesquisa = this.formBuilder.group({
+      nome: [null],
+    });
+    this.listarItens();
+  }
+
+  limparPesquisa(){
+    this.formGroupPesquisa.reset();
     this.listarItens();
   }
   
   listarItens(){
     this.carregando = true;
     const queryAdicional = new Map(); 
+    if(this.formGroupPesquisa.value.nome){
+      queryAdicional.set("nome_like", this.formGroupPesquisa.value.nome);
+    }
      this.itemService.listar(
        new PageRequest(
          {
             pageNumber: this.pageEvent? this.pageEvent.pageIndex: 0,
             pageSize: this.pageEvent? this.pageEvent.pageSize: 5
+         },
+         {
+            property: this.sortEvent?this.sortEvent.active: "id",
+            direction: this.sortEvent?this.sortEvent.direction: "asc"
          },
          queryAdicional
        )
@@ -51,6 +71,10 @@ export class ItemListarComponent implements OnInit {
        error => {
           this.page = new Page([], 0);
           this.carregando = false;
+          this.matSnackBar.open("Erro ao listar itens: " + JSON.stringify(error), undefined, {
+            duration: 5000,
+            panelClass: "red-snackbar",
+          });
        }
      );
   }

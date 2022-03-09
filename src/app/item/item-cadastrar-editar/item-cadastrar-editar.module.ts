@@ -8,6 +8,7 @@ import {MatInputModule} from '@angular/material/input';
 
 import { ItemCadastrarEditarRoutingModule } from './item-cadastrar-editar-routing.module';
 import { ItemCadastrarEditarComponent } from './item-cadastrar-editar/item-cadastrar-editar.component';
+import { DialogoConfirmacaoModule } from 'src/app/_shared/dialogo-confirmacao/dialogo-confirmacao.module';
 
 
 @NgModule({
@@ -17,6 +18,7 @@ import { ItemCadastrarEditarComponent } from './item-cadastrar-editar/item-cadas
   imports: [
     CommonModule,
     ItemCadastrarEditarRoutingModule,
+    DialogoConfirmacaoModule,
     ReactiveFormsModule,
     MatFormFieldModule,
     MatInputModule,
